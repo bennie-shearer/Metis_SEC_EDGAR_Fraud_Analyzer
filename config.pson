@@ -1,0 +1,100 @@
+# =============================================================================
+# Metis SEC EDGAR Fraud Analyzer - Configuration
+# Version: 3.1.3
+# Author: Bennie Shearer (Retired)
+# Copyright (c) 2026 Bennie Shearer (Retired)
+#
+# DISCLAIMER: This project is NOT funded, endorsed, or approved by the
+# U.S. Securities and Exchange Commission (SEC).
+#
+# Format: key=value  (lines beginning with # are comments)
+# ALL runtime parameters are defined here. Do not hard-code values in source.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Server
+# -----------------------------------------------------------------------------
+server.port=8080
+server.host=0.0.0.0
+server.threads=4
+server.cors=true
+server.max_body_mb=10
+
+# -----------------------------------------------------------------------------
+# Paths
+# -----------------------------------------------------------------------------
+paths.static_dir=client
+paths.cache_dir=cache
+paths.log_file=logs/metis.log
+
+# -----------------------------------------------------------------------------
+# Logging  (debug | info | warning | error | critical)
+# logging.console=true  echoes log lines to stdout/stderr in addition to file.
+# Use logging.level=debug for full request/response and diagnostic tracing.
+# -----------------------------------------------------------------------------
+logging.level=debug
+logging.console=true
+
+# -----------------------------------------------------------------------------
+# SEC EDGAR
+# IMPORTANT: SEC requires a User-Agent in the exact format:
+#   FirstName LastName email@domain.com
+# Example: Bob Doe bob@doe.com
+# Do NOT use parentheses, app names, or version strings.
+# Using the wrong format returns HTTP 403 from all EDGAR endpoints.
+# sec.max_results caps the number of company search results returned.
+# -----------------------------------------------------------------------------
+sec.user_agent=Bob Doe bob@doe.com
+sec.rate_limit_ms=100
+sec.timeout_seconds=30
+sec.max_results=10
+
+# -----------------------------------------------------------------------------
+# In-memory analysis cache
+# -----------------------------------------------------------------------------
+cache.ttl_seconds=3600
+
+# -----------------------------------------------------------------------------
+# Analysis defaults
+# -----------------------------------------------------------------------------
+analysis.default_years=5
+analysis.max_years=10
+
+# -----------------------------------------------------------------------------
+# GPU acceleration (reserved - future C++20 implementation)
+# gpu.device: auto | cpu | cuda:<n> | opencl:<n>
+# -----------------------------------------------------------------------------
+gpu.enabled=false
+gpu.device=auto
+
+# -----------------------------------------------------------------------------
+# Kubernetes / container deployment (reserved - future C++20 implementation)
+# -----------------------------------------------------------------------------
+k8s.enabled=false
+k8s.namespace=default
+
+# -----------------------------------------------------------------------------
+# Model weights  (must sum to 1.0; auto-normalized if they do not)
+# -----------------------------------------------------------------------------
+weights.beneish=0.30
+weights.altman=0.25
+weights.piotroski=0.15
+weights.fraud_triangle=0.15
+weights.benford=0.05
+weights.red_flags=0.10
+
+# -----------------------------------------------------------------------------
+# Client (browser) settings
+# The client fetches config.pson from the server's static_dir on startup.
+# client.api_url tells the browser where the server is running.
+# Change this if you run the server on a non-default address or port.
+# -----------------------------------------------------------------------------
+client.api_url=http://localhost:8080
+client.timeout_seconds=30
+client.log_level=info
+client.dark_mode=false
+client.demo_mode=false
+# If true, the browser UI will detect the user's preferred language from the
+# browser's language settings when no locale has been explicitly selected.
+# If false (default), American English (en) is always the default locale.
+client.detect_browser_locale=false

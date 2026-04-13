@@ -1,0 +1,73 @@
+# =============================================================================
+# Metis SEC EDGAR Fraud Analyzer - .gitignore
+# =============================================================================
+
+# CMake build directories
+cmake-build-debug/
+cmake-build-release/
+cmake-build-*/
+build/
+out/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Generated header (produced by CMake configure_file)
+include/sec_analyzer/version.h
+
+# Binary output
+bin/
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# Runtime directories (created at startup)
+logs/
+cache/
+
+# CLion IDE
+.idea/
+*.iml
+.clangd/
+.cache/
+
+# VS Code
+.vscode/
+
+# Object files
+*.o
+*.obj
+
+# Windows
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.nfs*
+
+# Zip archives (produced by packaging scripts)
+*.zip
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
